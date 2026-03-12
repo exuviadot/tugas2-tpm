@@ -13,11 +13,11 @@ class LoginPage extends StatelessWidget {
       required String username,
       required String password,
     }){
-      if(username == '123230167' && password == 'kuis_123230167') {
+      if(username == 'tes' && password == 'tes') {
         
         Navigator.pushReplacement(
           context, 
-          MaterialPageRoute(builder: (context) => const HomePage())
+          MaterialPageRoute(builder: (context) => HomePage())
         );
 
       } else {
@@ -46,8 +46,6 @@ class LoginPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
 
                   children: [
-                    Image.asset('images/logo.png'),
-
                     Text(style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold), 'Login'),
                     SizedBox(height: 20),
                     _loginField(
