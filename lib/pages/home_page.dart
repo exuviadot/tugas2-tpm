@@ -45,7 +45,7 @@ class HomePage extends StatelessWidget {
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             child: InkWell(
               borderRadius: BorderRadius.circular(20),
-              splashColor: menu.color.withValues(alpha: 0.3), // Efek klik berwarna
+              splashColor: menu.color.withValues(alpha: 0.3), 
               hoverColor: menu.color.withValues(alpha: 0.1),
               onTap: () => Navigator.push(
                 context,
