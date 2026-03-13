@@ -1,54 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:tugas_2/pages/bilangan_page.dart';
-import 'package:tugas_2/pages/calc_page.dart';
+import 'package:tugas_2/models/menu_data.dart';
 import 'package:tugas_2/pages/login_page.dart';
-import 'package:tugas_2/pages/pyramid_page.dart';
-import 'package:tugas_2/pages/stopwatch_page.dart';
-import 'package:tugas_2/pages/total_angka_page.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({super.key});
-
-  final List<Map<String, dynamic>> menus = [
-    {
-      'title': 'Aritmatika', 
-      'subtitle': 'Penjumlahan & Pengurangan',
-      'icon': Icons.calculate, 
-      'color': Colors.blue.shade400,
-      'page': CalcPage()
-    },
-    {
-      'title': 'Bilangan', 
-      'subtitle': 'Ganjil/Genap & Prima',
-      'icon': Icons.numbers, 
-      'color': Colors.orange.shade400,
-      'page': BilanganPage()
-    },
-    {
-      'title': 'Total Field', 
-      'subtitle': 'Hitung Total Angka',
-      'icon': Icons.summarize, 
-      'color': Colors.green.shade400,
-      'page': TotalAngkaPage()
-    },
-    {
-      'title': 'Stopwatch', 
-      'subtitle': 'Manajemen Waktu',
-      'icon': Icons.timer, 
-      'color': Colors.red.shade400,
-      'page': StopwatchPage()
-    },
-    {
-      'title': 'Pyramid', 
-      'subtitle': 'Luas & Volume',
-      'icon': Icons.category, 
-      'color': Colors.deepPurple.shade400,
-      'page': PyramidPage()
-    },
-  ];
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final menus = MenuData.listPage;
+
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
@@ -78,16 +38,18 @@ class HomePage extends StatelessWidget {
 
         itemCount: menus.length,
         itemBuilder: (context, index) {
+          final menu = menus[index];
+
           return Card(
             elevation: 4,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             child: InkWell(
               borderRadius: BorderRadius.circular(20),
-              splashColor: menus[index]['color'].withOpacity(0.3), // Efek klik berwarna
-              hoverColor: menus[index]['color'].withOpacity(0.1),
+              splashColor: menu.color.withValues(alpha: 0.3), // Efek klik berwarna
+              hoverColor: menu.color.withValues(alpha: 0.1),
               onTap: () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => menus[index]['page']),
+                MaterialPageRoute(builder: (context) => menu.page),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -95,23 +57,23 @@ class HomePage extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: menus[index]['color'].withOpacity(0.1),
+                      color: menu.color.withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
-                      menus[index]['icon'], 
+                      menu.icon, 
                       size: 40, 
-                      color: menus[index]['color'],
+                      color: menu.color,
                     ),
                   ),
                   const SizedBox(height: 15),
                   Text(
-                    menus[index]['title'], 
+                    menu.title, 
                     style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    menus[index]['subtitle'], 
+                    menu.subtitle, 
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
                   ),
