@@ -29,6 +29,7 @@ class LoginPage extends StatelessWidget {
     }
 
     return Scaffold(
+      backgroundColor: Colors.grey.shade50,
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(

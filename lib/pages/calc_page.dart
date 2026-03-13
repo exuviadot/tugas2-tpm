@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tugas_2/models/menu_model.dart';
 
 class CalcPage extends StatefulWidget {
-  const CalcPage({super.key});
+  final MenuModel menu;
+  const CalcPage({super.key, required this.menu});
 
   @override
   State<CalcPage> createState() => _CalcPageState();
@@ -11,7 +13,9 @@ class _CalcPageState extends State<CalcPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
+        title: Text(widget.menu.title, style: TextStyle(fontWeight: FontWeight.bold)),
         backgroundColor: Colors.deepPurple,
         foregroundColor: Colors.white,
       ),

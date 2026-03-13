@@ -49,7 +49,7 @@ class HomePage extends StatelessWidget {
               hoverColor: menu.color.withValues(alpha: 0.1),
               onTap: () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => menu.page),
+                MaterialPageRoute(builder: (context) => menu.page(menu)),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
