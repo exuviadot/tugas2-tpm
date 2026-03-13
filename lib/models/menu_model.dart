@@ -5,7 +5,7 @@ class MenuModel {
   final String subtitle;
   final IconData icon;
   final Color color;
-  final Widget page;
+  final Widget Function(MenuModel) page;
 
   MenuModel({
     required this.title,

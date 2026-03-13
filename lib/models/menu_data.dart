@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tugas_2/models/menu_model.dart';
 import 'package:tugas_2/pages/bilangan_page.dart';
 import 'package:tugas_2/pages/calc_page.dart';
+import 'package:tugas_2/pages/data_kelompok_page.dart';
 import 'package:tugas_2/pages/pyramid_page.dart';
 import 'package:tugas_2/pages/stopwatch_page.dart';
 import 'package:tugas_2/pages/total_angka_page.dart';
@@ -9,11 +10,19 @@ import 'package:tugas_2/pages/total_angka_page.dart';
 class MenuData {
   static List<MenuModel> listPage = [
     MenuModel(
+      title: 'Data Kelompok', 
+      subtitle: 'Nama & NIM Anggota', 
+      icon: Icons.person, 
+      color: Colors.pink.shade400, 
+      page: (menu) => DataKelompokPage(menu: menu)
+    ),
+
+    MenuModel(
       title: 'Aritmatika', 
       subtitle: 'Penjumlahan & Pengurangan', 
       icon: Icons.calculate, 
       color: Colors.blue.shade400, 
-      page: CalcPage()
+      page: (menu) => CalcPage(menu: menu)
     ),
 
     MenuModel(
@@ -21,7 +30,7 @@ class MenuData {
       subtitle: 'Ganjil/Genap & Prima', 
       icon: Icons.numbers, 
       color: Colors.orange.shade400, 
-      page: BilanganPage()
+      page: (menu) => BilanganPage(menu: menu)
     ),
 
     MenuModel(
@@ -29,7 +38,7 @@ class MenuData {
       subtitle: 'Hitung Total Angka', 
       icon: Icons.summarize, 
       color: Colors.green.shade400, 
-      page: TotalAngkaPage()
+      page: (menu) => TotalAngkaPage(menu: menu)
     ),
 
     MenuModel(
@@ -37,7 +46,7 @@ class MenuData {
       subtitle: 'Manajemen Waktu', 
       icon: Icons.timer, 
       color: Colors.red.shade400, 
-      page: StopwatchPage()
+      page: (menu) => StopwatchPage(menu: menu)
     ),
 
     MenuModel(
@@ -45,7 +54,7 @@ class MenuData {
       subtitle: 'Luas & Volume', 
       icon: Icons.category, 
       color: Colors.deepPurple.shade400, 
-      page: PyramidPage()
+      page: (menu) => PyramidPage(menu: menu)
     ),
   ];
 }
