@@ -11,7 +11,10 @@ class _BilanganPageState extends State<BilanganPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
+      appBar: AppBar(
+        backgroundColor: Colors.deepPurple,
+        foregroundColor: Colors.white,
+      ),
     );
   }
 }

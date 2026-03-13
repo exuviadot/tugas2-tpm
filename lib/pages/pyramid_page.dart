@@ -11,7 +11,10 @@ class _PyramidPageState extends State<PyramidPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
+      appBar: AppBar(
+        backgroundColor: Colors.deepPurple,
+        foregroundColor: Colors.white,
+      ),
     );
   }
 }
