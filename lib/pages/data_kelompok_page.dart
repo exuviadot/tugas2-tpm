@@ -8,7 +8,6 @@ class DataKelompokPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Map<String, String>> anggota = [
-      {"nama": "Dafa Firmansah", "nim": "123230001"},
       {"nama": "Amrullah Alam Almaududi", "nim": "123230163"},
       {"nama": "Dwiki Aditya Rabbani", "nim": "123230167"},
       {"nama": "Atiqa Desyta Zahrani", "nim": "123230185"}

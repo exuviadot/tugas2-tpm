@@ -61,8 +61,7 @@ class _BilanganPageState extends State<BilanganPage> {
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
-        title: Text(widget.menu.title,
-            style: const TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(widget.menu.title, style: const TextStyle(fontWeight: FontWeight.bold)),
         backgroundColor: Colors.deepPurple,
         foregroundColor: Colors.white,
         centerTitle: true,

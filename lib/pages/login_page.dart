@@ -15,8 +15,7 @@ class LoginPage extends StatelessWidget {
     }){
 
       final Map<String, String> validUsers = {
-        '123230163': 'upn163',   
-        '123230001': 'upn001',  
+        '123230163': 'upn163',  
         '123230167': 'upn167',     
         '123230185': 'upn185',      
       };
