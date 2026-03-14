@@ -9,6 +9,41 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final menus = MenuData.listPage;
 
+    void showLogoutDialog() {
+      showDialog(
+        context: context, 
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Konfirmasi'),
+            content: Text('Apakah anda yakin ingin logout?'),
+            
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                }, 
+                child: Text('Batal'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LoginPage(),
+                    ),
+                  );
+                },
+                child: Text('Logout'),
+              ),
+            ],
+
+          );
+        }
+      );
+    }
+
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
@@ -19,10 +54,7 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
-            onPressed: () => Navigator.pushReplacement(
-              context, 
-              MaterialPageRoute(builder: (context) => const LoginPage())
-            )
+            onPressed: () => showLogoutDialog()
           )
         ],
       ),
