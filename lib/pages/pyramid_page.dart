@@ -231,14 +231,26 @@ class _PyramidPageState extends State<PyramidPage> {
           decoration: BoxDecoration(color: Colors.white12, borderRadius: BorderRadius.circular(10)),
           child: Icon(icon, color: Colors.white, size: 22),
         ),
+
         const SizedBox(width: 14),
         Text(label, style: const TextStyle(color: Colors.white70, fontSize: 13)),
         const Spacer(),
         RichText(
           text: TextSpan(
-            text: value.toStringAsFixed(2),
+            text: value == 0 ? "0" 
+                : (value.abs() < 0.01 || value.abs() > 1000000)
+                  ? value.toStringAsExponential(2) : value.toStringAsFixed(2).replaceAll(RegExp(r'\.?0*$'), ''),
             style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-            children: [TextSpan(text: ' $unit', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: Colors.white60))],
+            children: [
+              TextSpan(
+                text: ' $unit', 
+                style: const TextStyle(
+                  fontSize: 12, 
+                  fontWeight: FontWeight.normal, 
+                  color: Colors.white60
+                )
+              )
+            ],
           ),
         ),
       ]);
