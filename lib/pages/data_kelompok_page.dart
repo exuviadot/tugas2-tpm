@@ -25,6 +25,8 @@ class DataKelompokPage extends StatelessWidget {
         ),
         backgroundColor: Colors.deepPurple,
         foregroundColor: Colors.white,
+        centerTitle: true,
+        elevation: 0,
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(16),
