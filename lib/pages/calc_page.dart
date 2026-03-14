@@ -12,46 +12,54 @@ class CalcPage extends StatefulWidget {
 class _CalcPageState extends State<CalcPage> {
   String _output = "0";
   String _input = "";
-  double _num1 = 0;
+  double? _num1;
   String _operator = "";
+  String _history = "";
+
+  void _calculate() {
+    if (_num1 == null || _operator.isEmpty || _input.isEmpty) return;
+    double num2 = double.tryParse(_input) ?? 0;
+    if (_operator == "+") {
+      _num1 = _num1! + num2;
+    } else if (_operator == "-") {
+      _num1 = _num1! - num2;
+    }
+    _output = _num1.toString().replaceAll(".0", "");
+  }
 
   void _onButtonPressed(String value) {
     setState(() {
       if (value == "C") {
         _output = "0";
         _input = "";
-        _num1 = 0;
+        _num1 = null;
         _operator = "";
+        _history = "";
       } else if (value == "⌫") {
         if (_input.isNotEmpty) {
           _input = _input.substring(0, _input.length - 1);
           _output = _input.isEmpty ? "0" : _input;
         }
       } else if (value == "+" || value == "-") {
-        _num1 = double.tryParse(_input) ?? 0;
-        _operator = value;
-        _input = "";
-      } else if (value == ".") {
-
-        // buat titik
-        if (!_input.contains(".")) {
-          _input = _input.isEmpty ? "0." : _input + ".";
-          _output = _input;
+        if (_input.isNotEmpty) {
+          if (_num1 == null) {
+            _num1 = double.tryParse(_input);
+          } else {
+            _calculate();
+          }
+          _operator = value;
+          _history = "${_num1.toString().replaceAll(".0", "")} $_operator";
+          _input = "";
         }
       } else if (value == "=") {
-        double num2 = double.tryParse(_input) ?? 0;
-        if (_operator == "+") {
-          _output = (_num1 + num2).toString();
-        } else if (_operator == "-") {
-          _output = (_num1 - num2).toString();
+        if (_num1 != null && _input.isNotEmpty) {
+          double num2 = double.tryParse(_input) ?? 0;
+          _history = "${_num1.toString().replaceAll(".0", "")} $_operator ${num2.toString().replaceAll(".0", "")} =";
+          _calculate();
+          _input = _output;
+          _num1 = null;
+          _operator = "";
         }
-
-        if (_output.endsWith(".0")) {
-          _output = _output.substring(0, _output.length - 2);
-        }
-        
-        _input = _output;
-        _operator = "";
       } else {
         if (_input == "0" && value == "0") return;
         _input += value;
@@ -63,115 +71,95 @@ class _CalcPageState extends State<CalcPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade50,
+      backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
-        title: Text(
-          widget.menu.title, 
-          style: const TextStyle(
-            fontWeight: FontWeight.bold
-          )
-        ),
+        title: Text(widget.menu.title, style: const TextStyle(fontWeight: FontWeight.bold)),
         backgroundColor: Colors.deepPurple,
         foregroundColor: Colors.white,
         centerTitle: true,
         elevation: 0,
       ),
-      body: Column(
-        children: [
-          
-          Expanded(
-            flex: 2,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-              alignment: Alignment.bottomRight,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    _operator.isEmpty ? "" : "${_num1.toString().replaceAll(".0", "")} $_operator",
-                    style: const TextStyle(
-                      fontSize: 24, 
-                      color: Colors.grey
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Text(
-                      _output,
-                      style: const TextStyle(
-                        fontSize: 80, 
-                        fontWeight: FontWeight.bold, 
-                        color: Colors.deepPurple
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.08),
+                  blurRadius: 20,
+                  offset: const Offset(0, 10),
+                )
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  padding: const EdgeInsets.fromLTRB(24, 32, 24, 20),
+                  alignment: Alignment.bottomRight,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(_history, style: const TextStyle(fontSize: 18, color: Colors.grey)),
+                      const SizedBox(height: 8),
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          _output,
+                          style: const TextStyle(fontSize: 60, fontWeight: FontWeight.bold, color: Colors.black),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                const Divider(height: 1),
+                Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    children: [
+                      _buildRow(["C", "⌫", "", ""]), 
+                      _buildRow(["7", "8", "9", "-"]),
+                      _buildRow(["4", "5", "6", "+"]),
+                      _buildRow(["1", "2", "3", "="]),
+                      _buildRow(["", "0", ".", ""]), 
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
-          
-          Expanded(
-            flex: 3,
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-                boxShadow: [BoxShadow(
-                  color: Colors.black12, 
-                  blurRadius: 10, 
-                  offset: Offset(0, -2)
-                )],
-              ),
-              child: Column(
-                children: [
-                  _buildRow(["C", "⌫", "", ""]), 
-                  _buildRow(["7", "8", "9", "-"]),
-                  _buildRow(["4", "5", "6", "+"]),
-                  _buildRow(["1", "2", "3", "="]),
-                  _buildRow(["", "0", ".", ""]), 
-                ],
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
 
   Widget _buildRow(List<String> values) {
-    return Expanded(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: values.map((val) => _buildButton(val)).toList(),
-      ),
+    return Row(
+      children: values.map((val) => _buildButton(val)).toList(),
     );
   }
 
   Widget _buildButton(String val) {
     if (val.isEmpty) return Expanded(child: Container());
-
     bool isOperator = val == "+" || val == "-" || val == "=" || val == "C" || val == "⌫" || val == ".";
-    
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ElevatedButton(
-          onPressed: () => _onButtonPressed(val),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: isOperator ? Colors.deepPurple.shade50 : Colors.grey.shade100,
-            foregroundColor: isOperator ? Colors.deepPurple : Colors.black87,
-            elevation: 0,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          ),
-          child: Text(
-            val,
-            style: TextStyle(
-              fontSize: 24, 
-              fontWeight: isOperator ? FontWeight.bold : FontWeight.normal
+        padding: const EdgeInsets.all(6.0),
+        child: AspectRatio(
+          aspectRatio: 1.2,
+          child: ElevatedButton(
+            onPressed: () => _onButtonPressed(val),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: isOperator ? Colors.deepPurple.shade50 : Colors.grey.shade100,
+              foregroundColor: isOperator ? Colors.deepPurple : Colors.black87,
+              elevation: 0,
+              padding: EdgeInsets.zero,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             ),
+            child: Text(val, style: const TextStyle(fontSize: 20)),
           ),
         ),
       ),
