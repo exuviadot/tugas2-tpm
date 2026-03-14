@@ -13,7 +13,16 @@ class LoginPage extends StatelessWidget {
       required String username,
       required String password,
     }){
-      if(username == 'tes' && password == 'tes') {
+
+      final Map<String, String> validUsers = {
+        '123230163': 'upn163',   
+        '123230001': 'upn001',  
+        '123230167': 'upn167',     
+        '123230185': 'upn185',      
+      };
+
+
+      if (validUsers.containsKey(username) && validUsers[username] == password) {
         Navigator.pushReplacement(
           context, 
           MaterialPageRoute(builder: (context) => HomePage())
