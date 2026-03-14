@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:tugas_2/models/menu_model.dart';
 
-const _units = ['mm', 'cm', 'm', 'km'];
+const _units = ['mm', 'cm','dm','dam', 'm','hm', 'km'];
 
 class PyramidPage extends StatefulWidget {
   final MenuModel menu;
