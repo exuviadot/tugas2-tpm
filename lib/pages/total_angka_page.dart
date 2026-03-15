@@ -90,6 +90,10 @@ class _TotalAngkaPageState extends State<TotalAngkaPage> {
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(color: Colors.grey.shade300)
+                    ),
                     suffixIcon: _controller.text.isNotEmpty 
                       ? IconButton(onPressed: _reset, icon: const Icon(Icons.close)) 
                       : null,

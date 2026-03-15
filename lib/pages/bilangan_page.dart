@@ -10,7 +10,7 @@ class BilanganPage extends StatefulWidget {
 }
 
 class _BilanganPageState extends State<BilanganPage> {
-  final _ctrl = TextEditingController();
+  final _controller = TextEditingController();
 
   bool _isPrime(int n) {
     if (n < 2) return false;
@@ -21,7 +21,7 @@ class _BilanganPageState extends State<BilanganPage> {
   }
 
   void _cek() {
-    final n = int.tryParse(_ctrl.text);
+    final n = int.tryParse(_controller.text);
     if (n == null) {
       _showDialog('Inputan harus berupa angka');
       return;
@@ -42,7 +42,7 @@ class _BilanganPageState extends State<BilanganPage> {
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
-                setState(() => _ctrl.clear());
+                setState(() => _controller.clear());
               },
               child: const Text('OK'),
             ),
@@ -52,7 +52,7 @@ class _BilanganPageState extends State<BilanganPage> {
 
   @override
   void dispose() {
-    _ctrl.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -88,16 +88,16 @@ class _BilanganPageState extends State<BilanganPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 TextField(
-                  controller: _ctrl,
+                  controller: _controller,
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
                     labelText: 'Masukkan angka',
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(12),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide(color: Colors.grey.shade300),
                     ),
                   ),
