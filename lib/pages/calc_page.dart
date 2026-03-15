@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:tugas_2/models/menu_model.dart';
 
 class CalcPage extends StatefulWidget {
@@ -16,15 +17,35 @@ class _CalcPageState extends State<CalcPage> {
   String _operator = "";
   String _history = "";
 
+  final NumberFormat _formatter = NumberFormat('#,###');
+
   void _calculate() {
     if (_num1 == null || _operator.isEmpty || _input.isEmpty) return;
     double num2 = double.tryParse(_input) ?? 0;
+
+    double result = 0;
     if (_operator == "+") {
-      _num1 = _num1! + num2;
+      result = _num1! + num2;
     } else if (_operator == "-") {
-      _num1 = _num1! - num2;
+      result = _num1! - num2;
     }
-    _output = _num1.toString().replaceAll(".0", "");
+    _output = result.toString().replaceAll(".0", "");
+    _num1 = result;
+  }
+
+  String _formatNumber(String val) {
+    if (val.isEmpty || val == "0") return "0";
+
+    if (val.contains('.')) {
+      List <String> parts = val.split('.');
+      String integerPart = parts[0];
+      String decimalPart = parts[1];
+
+      String formattedInteger = _formatter.format(int.tryParse(integerPart) ?? 0);
+      return '$formattedInteger.$decimalPart';
+    }
+
+    return _formatter.format(int.tryParse(val) ?? 0);
   }
 
   void _onButtonPressed(String value) {
@@ -108,14 +129,14 @@ class _CalcPageState extends State<CalcPage> {
                       FittedBox(
                         fit: BoxFit.scaleDown,
                         child: Text(
-                          _output,
+                          _formatNumber(_output),
                           style: const TextStyle(fontSize: 60, fontWeight: FontWeight.bold, color: Colors.black),
                         ),
                       ),
                     ],
                   ),
                 ),
-                const Divider(height: 1),
+                const Divider(),
                 Padding(
                   padding: const EdgeInsets.all(12),
                   child: Column(
