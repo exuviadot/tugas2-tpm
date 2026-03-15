@@ -13,7 +13,7 @@ class StopwatchPage extends StatefulWidget {
 class _StopwatchPageState extends State<StopwatchPage> {
   final Stopwatch _stopwatch = Stopwatch();
   Timer? _timer;
-  final List<String> _laps = []; // List untuk menyimpan data Lap
+  final List<String> _laps = []; // list untuk menyimpan data Lap
 
   String _formatTime() {
     final duration = _stopwatch.elapsed;
@@ -32,7 +32,6 @@ class _StopwatchPageState extends State<StopwatchPage> {
         _timer?.cancel();
       } else {
         _stopwatch.start();
-        // Gunakan 30ms agar update milidetik terlihat mulus
         _timer = Timer.periodic(const Duration(milliseconds: 30), (timer) {
           setState(() {});
         });
@@ -43,7 +42,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
   void _handleReset() {
     setState(() {
       _stopwatch.reset();
-      _laps.clear(); // Bersihkan lap saat reset
+      _laps.clear(); // bersihkan lap saat reset
       if (!_stopwatch.isRunning) _timer?.cancel();
     });
   }
@@ -51,7 +50,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
   void _handleLap() {
     if (_stopwatch.isRunning) {
       setState(() {
-        _laps.insert(0, _formatTime()); // Tambah lap ke urutan paling atas
+        _laps.insert(0, _formatTime()); 
       });
     }
   }
@@ -69,10 +68,9 @@ class _StopwatchPageState extends State<StopwatchPage> {
       body: Column(
         children: [
           const SizedBox(height: 40),
-          // --- BAGIAN LINGKARAN (PERBAIKAN) ---
           Center(
             child: Container(
-              width: 280, // Ukuran tetap agar tidak meluber
+              width: 280, 
               height: 280,
               alignment: Alignment.center,
               decoration: BoxDecoration(
@@ -86,7 +84,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
               child: Text(
                 _formatTime(),
                 style: const TextStyle(
-                  fontSize: 42, // Sedikit diperkecil agar pas
+                  fontSize: 42, 
                   fontWeight: FontWeight.w300,
                   fontFamily: 'monospace',
                 ),
@@ -96,7 +94,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
           
           const SizedBox(height: 40),
           
-          // --- TOMBOL KONTROL ---
+          // tombol kontrol
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -120,7 +118,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
           const SizedBox(height: 30),
           const Divider(),
 
-          // --- LIST LAP ---
+          // list buat lap
           Expanded(
             child: ListView.builder(
               itemCount: _laps.length,
