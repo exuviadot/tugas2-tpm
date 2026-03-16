@@ -84,7 +84,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
               child: Text(
                 _formatTime(),
                 style: const TextStyle(
-                  fontSize: 42, 
+                  fontSize: 32, 
                   fontWeight: FontWeight.w300,
                   fontFamily: 'monospace',
                 ),

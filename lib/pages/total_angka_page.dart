@@ -28,7 +28,7 @@ class _TotalAngkaPageState extends State<TotalAngkaPage> {
 
     int total = 0;
     List<String> listDigit = digits.split('');
-    
+
     for (var digit in listDigit) {
       total += int.parse(digit);
     }
@@ -56,7 +56,10 @@ class _TotalAngkaPageState extends State<TotalAngkaPage> {
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
-        title: Text(widget.menu.title, style: const TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(
+          widget.menu.title,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
         backgroundColor: Colors.deepPurple,
         foregroundColor: Colors.white,
         centerTitle: true,
@@ -75,7 +78,7 @@ class _TotalAngkaPageState extends State<TotalAngkaPage> {
                   color: Colors.black.withOpacity(0.05),
                   blurRadius: 20,
                   offset: const Offset(0, 10),
-                )
+                ),
               ],
             ),
             child: Column(
@@ -89,14 +92,19 @@ class _TotalAngkaPageState extends State<TotalAngkaPage> {
                     hintText: 'Contoh: 12345',
                     filled: true,
                     fillColor: Colors.white,
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Colors.grey.shade300)
+                      borderSide: BorderSide(color: Colors.grey.shade300),
                     ),
-                    suffixIcon: _controller.text.isNotEmpty 
-                      ? IconButton(onPressed: _reset, icon: const Icon(Icons.close)) 
-                      : null,
+                    suffixIcon: _controller.text.isNotEmpty
+                        ? IconButton(
+                            onPressed: _reset,
+                            icon: const Icon(Icons.close),
+                          )
+                        : null,
                   ),
                   onChanged: (value) => setState(() {}),
                 ),
@@ -104,7 +112,6 @@ class _TotalAngkaPageState extends State<TotalAngkaPage> {
                 Row(
                   children: [
                     Expanded(
-                      flex: 2, 
                       child: SizedBox(
                         height: 50,
                         child: ElevatedButton.icon(
@@ -114,14 +121,15 @@ class _TotalAngkaPageState extends State<TotalAngkaPage> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.deepPurple,
                             foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
                           ),
                         ),
                       ),
                     ),
                     const SizedBox(width: 12),
                     Expanded(
-                      flex: 1,
                       child: SizedBox(
                         height: 50,
                         child: OutlinedButton.icon(
@@ -131,7 +139,9 @@ class _TotalAngkaPageState extends State<TotalAngkaPage> {
                           style: OutlinedButton.styleFrom(
                             foregroundColor: Colors.deepPurple,
                             side: const BorderSide(color: Colors.deepPurple),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
                           ),
                         ),
                       ),
@@ -150,12 +160,22 @@ class _TotalAngkaPageState extends State<TotalAngkaPage> {
                     ),
                     child: Column(
                       children: [
-                        const Text('HASIL PERHITUNGAN', 
-                          style: TextStyle(fontSize: 12, color: Colors.grey, letterSpacing: 1.2)),
+                        const Text(
+                          'HASIL PERHITUNGAN',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey,
+                            letterSpacing: 1.2,
+                          ),
+                        ),
                         const SizedBox(height: 12),
                         Text(
                           _hasil,
-                          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.deepPurple),
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.deepPurple,
+                          ),
                           textAlign: TextAlign.center,
                         ),
                       ],
