@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:math_expressions/math_expressions.dart';
 import 'package:tugas_2/models/menu_model.dart';
 
 class CalcPage extends StatefulWidget {
@@ -13,39 +14,37 @@ class CalcPage extends StatefulWidget {
 class _CalcPageState extends State<CalcPage> {
   String _output = "0";
   String _input = "";
-  double? _num1;
-  String _operator = "";
   String _history = "";
 
-  final NumberFormat _formatter = NumberFormat('#,###');
+  final NumberFormat _formatter = NumberFormat('#,###.###');
 
   void _calculate() {
-    if (_num1 == null || _operator.isEmpty || _input.isEmpty) return;
-    double num2 = double.tryParse(_input) ?? 0;
+    if (_input.isEmpty) return;
+    try {
+      Parser p = Parser();
+      Expression exp = p.parse(_input.replaceAll('x', '*').replaceAll(':', '/'));
+      ContextModel cm = ContextModel();
+      double result = exp.evaluate(EvaluationType.REAL, cm);
 
-    double result = 0;
-    if (_operator == "+") {
-      result = _num1! + num2;
-    } else if (_operator == "-") {
-      result = _num1! - num2;
+      _output = result.toString().endsWith(".0") 
+          ? result.toStringAsFixed(0) 
+          : result.toString();
+      _input = _output;
+    } catch (e) {
+      _output = "Error";
     }
-    _output = result.toString().replaceAll(".0", "");
-    _num1 = result;
   }
 
   String _formatNumber(String val) {
+    if (val == "Error") return val;
     if (val.isEmpty || val == "0") return "0";
-
+    
     if (val.contains('.')) {
-      List <String> parts = val.split('.');
-      String integerPart = parts[0];
-      String decimalPart = parts[1];
-
-      String formattedInteger = _formatter.format(int.tryParse(integerPart) ?? 0);
-      return '$formattedInteger.$decimalPart';
+      List<String> parts = val.split('.');
+      String formattedInteger = _formatter.format(double.tryParse(parts[0]) ?? 0);
+      return '$formattedInteger.${parts[1]}';
     }
-
-    return _formatter.format(int.tryParse(val) ?? 0);
+    return _formatter.format(double.tryParse(val) ?? 0);
   }
 
   void _onButtonPressed(String value) {
@@ -53,38 +52,24 @@ class _CalcPageState extends State<CalcPage> {
       if (value == "C") {
         _output = "0";
         _input = "";
-        _num1 = null;
-        _operator = "";
         _history = "";
       } else if (value == "⌫") {
         if (_input.isNotEmpty) {
           _input = _input.substring(0, _input.length - 1);
           _output = _input.isEmpty ? "0" : _input;
-        }
-      } else if (value == "+" || value == "-") {
-        if (_input.isNotEmpty) {
-          if (_num1 == null) {
-            _num1 = double.tryParse(_input);
-          } else {
-            _calculate();
-          }
-          _operator = value;
-          _history = "${_num1.toString().replaceAll(".0", "")} $_operator";
-          _input = "";
+          _history = _input;
         }
       } else if (value == "=") {
-        if (_num1 != null && _input.isNotEmpty) {
-          double num2 = double.tryParse(_input) ?? 0;
-          _history = "${_num1.toString().replaceAll(".0", "")} $_operator ${num2.toString().replaceAll(".0", "")} =";
-          _calculate();
-          _input = _output;
-          _num1 = null;
-          _operator = "";
-        }
+        _history = "$_input =";
+        _calculate();
       } else {
-        if (_input == "0" && value == "0") return;
-        _input += value;
+        if (_input == "0" && value != ".") {
+          _input = value;
+        } else {
+          _input += value;
+        }
         _output = _input;
+        _history = _input;
       }
     });
   }
@@ -109,7 +94,8 @@ class _CalcPageState extends State<CalcPage> {
               borderRadius: BorderRadius.circular(30),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.08),
+                  // Menggunakan .withValues untuk menghindari deprecation
+                  color: Colors.black.withValues(alpha: 0.08),
                   blurRadius: 20,
                   offset: const Offset(0, 10),
                 )
@@ -141,11 +127,11 @@ class _CalcPageState extends State<CalcPage> {
                   padding: const EdgeInsets.all(12),
                   child: Column(
                     children: [
-                      _buildRow(["C", "⌫", "", ""]), 
+                      _buildRow(["C", "⌫", "(", ")"]),
                       _buildRow(["7", "8", "9", "-"]),
                       _buildRow(["4", "5", "6", "+"]),
                       _buildRow(["1", "2", "3", "="]),
-                      _buildRow(["", "0", ".", ""]), 
+                      _buildRow(["", "0", ".", ""]),
                     ],
                   ),
                 ),
@@ -165,7 +151,7 @@ class _CalcPageState extends State<CalcPage> {
 
   Widget _buildButton(String val) {
     if (val.isEmpty) return Expanded(child: Container());
-    bool isOperator = val == "+" || val == "-" || val == "=" || val == "C" || val == "⌫" || val == ".";
+    bool isOperator = ["+", "-", "=", "C", "⌫", ".", "(", ")"].contains(val);
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(6.0),
