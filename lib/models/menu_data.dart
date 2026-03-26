@@ -6,6 +6,7 @@ import 'package:tugas_2/pages/data_kelompok_page.dart';
 import 'package:tugas_2/pages/pyramid_page.dart';
 import 'package:tugas_2/pages/stopwatch_page.dart';
 import 'package:tugas_2/pages/total_angka_page.dart';
+import 'package:tugas_2/pages/cariweton_page.dart';
 
 class MenuData {
   static List<MenuModel> listPage = [
@@ -55,6 +56,14 @@ class MenuData {
       icon: Icons.category, 
       color: Colors.deepPurple.shade400, 
       page: (menu) => PyramidPage(menu: menu)
+    ),
+
+    MenuModel(
+      title: 'Weton ', 
+      subtitle: 'Cari Weton', 
+      icon: Icons.auto_stories, 
+      color: Colors.lightBlue.shade400, 
+      page: (menu) => CariWetonPage(menu: menu)
     ),
   ];
 }
