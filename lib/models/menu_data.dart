@@ -7,6 +7,7 @@ import 'package:tugas_2/pages/pyramid_page.dart';
 import 'package:tugas_2/pages/stopwatch_page.dart';
 import 'package:tugas_2/pages/total_angka_page.dart';
 import 'package:tugas_2/pages/cariweton_page.dart';
+import 'package:tugas_2/pages/tanggal_lahir.dart';
 
 class MenuData {
   static List<MenuModel> listPage = [
@@ -64,6 +65,14 @@ class MenuData {
       icon: Icons.auto_stories, 
       color: Colors.lightBlue.shade400, 
       page: (menu) => CariWetonPage(menu: menu)
+    ),
+
+    MenuModel(
+      title: 'Kalkulator Umur',
+      subtitle: 'Detail Tahun - Menit',
+      icon: Icons.hourglass_top,
+      color: const Color.fromARGB(255, 223, 147, 119),
+      page: (menu) => TanggalLahirPage(menu: menu), 
     ),
   ];
 }
