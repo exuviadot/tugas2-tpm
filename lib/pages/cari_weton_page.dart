@@ -27,7 +27,7 @@ class _CariWetonPageState extends State<CariWetonPage> {
   ];
 
   final List<String> _pasaranList = ['Legi', 'Pahing', 'Pon', 'Wage', 'Kliwon'];
-  final DateTime _referensiTanggal = DateTime(1900, 1, 1);
+  final DateTime _referensiTanggal = DateTime.utc(1900, 1, 1);
   final int _referensiPasaranIndex = 1;
 
   @override
@@ -56,7 +56,9 @@ class _CariWetonPageState extends State<CariWetonPage> {
   }
 
   String _hitungPasaran(DateTime tanggal) {
-    int selisihHari = tanggal.difference(_referensiTanggal).inDays;
+    final DateTime target = DateTime.utc(tanggal.year, tanggal.month, tanggal.day);
+
+    int selisihHari = target.difference(_referensiTanggal).inDays;
     int pasaranIndex = (_referensiPasaranIndex + selisihHari) % 5;
     return _pasaranList[pasaranIndex];
   }
