@@ -3,10 +3,11 @@ import 'package:tugas_2/models/menu_model.dart';
 import 'package:tugas_2/pages/bilangan_page.dart';
 import 'package:tugas_2/pages/calc_page.dart';
 import 'package:tugas_2/pages/data_kelompok_page.dart';
+import 'package:tugas_2/pages/hijriyah_page.dart';
 import 'package:tugas_2/pages/pyramid_page.dart';
 import 'package:tugas_2/pages/stopwatch_page.dart';
 import 'package:tugas_2/pages/total_angka_page.dart';
-import 'package:tugas_2/pages/cariweton_page.dart';
+import 'package:tugas_2/pages/cari_weton_page.dart';
 import 'package:tugas_2/pages/tanggal_lahir.dart';
 
 class MenuData {
@@ -60,7 +61,7 @@ class MenuData {
     ),
 
     MenuModel(
-      title: 'Weton ', 
+      title: 'Weton', 
       subtitle: 'Cari Weton', 
       icon: Icons.auto_stories, 
       color: Colors.lightBlue.shade400, 
@@ -73,6 +74,14 @@ class MenuData {
       icon: Icons.hourglass_top,
       color: const Color.fromARGB(255, 223, 147, 119),
       page: (menu) => TanggalLahirPage(menu: menu), 
+    ),
+    
+    MenuModel(
+      title: 'Hijriyah', 
+      subtitle: 'Konversi Masehi ke Hijriyah', 
+      icon: Icons.date_range, 
+      color: Colors.cyan.shade400, 
+      page: (menu) => HijriyahPage(menu: menu),
     ),
   ];
 }
