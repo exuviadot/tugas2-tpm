@@ -5,6 +5,7 @@ import 'package:tugas_2/pages/calc_page.dart';
 import 'package:tugas_2/pages/data_kelompok_page.dart';
 import 'package:tugas_2/pages/hijriyah_page.dart';
 import 'package:tugas_2/pages/pyramid_page.dart';
+import 'package:tugas_2/pages/saka_page.dart';
 import 'package:tugas_2/pages/stopwatch_page.dart';
 import 'package:tugas_2/pages/total_angka_page.dart';
 import 'package:tugas_2/pages/cari_weton_page.dart';
@@ -82,6 +83,14 @@ class MenuData {
       icon: Icons.date_range, 
       color: Colors.cyan.shade400, 
       page: (menu) => HijriyahPage(menu: menu),
+    ),
+
+    MenuModel(
+      title: 'Tahun Saka', 
+      subtitle: 'Konversi Masehi ke Tahun Saka', 
+      icon: Icons.temple_hindu_outlined, 
+      color: Colors.cyanAccent.shade400, 
+      page: (menu) => SakaPage(menu: menu),
     ),
   ];
 }
